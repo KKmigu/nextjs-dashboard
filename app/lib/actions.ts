@@ -1,9 +1,9 @@
 'use server';
 
-import { z } from 'zod';
-import { sql } from '@vercel/postgres';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+import {z} from 'zod';
+import {sql} from '@vercel/postgres';
+import {revalidatePath} from 'next/cache';
+import {redirect} from 'next/navigation';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -13,10 +13,10 @@ const FormSchema = z.object({
   date: z.string(),
 });
 
-const CreateInvoice = FormSchema.omit({ id: true, date: true });
+const CreateInvoice = FormSchema.omit({id: true, date: true});
 
 export async function createInvoice(formData: FormData) {
-  const { customerId, amount, status} = CreateInvoice.parse({
+  const {customerId, amount, status} = CreateInvoice.parse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
     status: formData.get('status'),
@@ -34,10 +34,10 @@ export async function createInvoice(formData: FormData) {
 
 }
 
-const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+const UpdateInvoice = FormSchema.omit({id: true, date: true});
 
 export async function updateInvoice(id: string, formData: FormData) {
-  const { customerId, amount, status } = UpdateInvoice.parse({
+  const {customerId, amount, status} = UpdateInvoice.parse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
     status: formData.get('status'),
@@ -56,6 +56,9 @@ export async function updateInvoice(id: string, formData: FormData) {
 }
 
 export async function deleteInvoice(id: string) {
-  await sql`DELETE FROM invoices WHERE id = ${id}`;
-  revalidatePath('/dashboard/invoices');
+  throw new Error('Failed to Delete Invoice');
+
+  // await sql`DELETE FROM invoices WHERE id = ${id}`;
+  // revalidatePath('/dashboard/invoices');
+  // return { message: 'Deleted Invoice.' };
 }
