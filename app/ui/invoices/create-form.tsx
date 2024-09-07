@@ -17,10 +17,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
   const [state, formAction] = useActionState(createInvoice, initialState);
 
   return (
-    <form action={formAction} onSubmit={(event) => {
-      // event.preventDefault();
-    }}
-    >
+    <form action={formAction}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6" aria-describedby="error">
         {/* Customer Name */}
         <div className="mb-4">
@@ -90,7 +87,8 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
           <legend className="mb-2 block text-sm font-medium">
             Set the invoice status
           </legend>
-          <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3" aria-describedby="status-error">
+          <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3"
+               aria-describedby="status-error">
             <div className="flex gap-4">
               <div className="flex items-center">
                 <input
